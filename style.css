@@ -49,19 +49,18 @@ p {
   .opinion__percent-container {
     display: none;
     width: 100%;
+    margin-top: 30px;
     border-right: 2px dashed #afafaf; }
-  .opinion__content {
-    margin-bottom: 30px; }
   .opinion__text {
     margin-bottom: 10px;
     font-size: 20px; }
   .opinion__deck {
-    width: 90%;
+    width: 100%;
     margin: 100px auto 0;
     padding: 15px;
     background-color: #e5e5e5; }
 
-@media (min-width: 400px) {
+@media (min-width: 500px) {
   .opinion__deck {
     width: 60%; } }
 

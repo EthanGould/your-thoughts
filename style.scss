@@ -87,11 +87,8 @@ $module-name: 'opinion';
 	&__percent-container {
 		display: none;
 		width: 100%;
+		margin-top: 30px;
 		border-right: 2px dashed $darkgrey;
-	}
-
-	&__content {
-		margin-bottom: 30px;
 	}
 
 	&__text {
@@ -100,14 +97,14 @@ $module-name: 'opinion';
 	}
 
 	&__deck {
-		width: 90%;
+		width: 100%;
 		margin: 100px auto 0;
 		padding: 15px;
 		background-color: $lightgrey;
 	}
 }
 
-@media (min-width: 400px) {
+@media (min-width: 500px) {
 	.#{$module-name} {
 		
 		&__deck {
