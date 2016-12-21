@@ -1,3 +1,25 @@
+//
+// DEFAULTS/RESETS
+// 
+// 
+
+$red: #db1a1e;
+$black: #000000;
+
+* {
+	box-sizing: border-box;
+	font-family: 'Josefin Sans', sans-serif;
+}
+
+p {
+	margin: 0 auto;
+}
+
+
+// 
+// Module Styles
+//
+
 $module-name: 'opinion';
 
 .#{$module-name} {
@@ -19,41 +41,78 @@ $module-name: 'opinion';
 	input[type="button"] {
 		padding: 10px;
 		border: none;
+		width: 60px;
+		font-size: 14px;
+		cursor: pointer;
+		transition: opacity 0.3s;
+
+		&:focus {
+			outline: 0;
+		}
+
+		&:hover {
+			opacity: 0.7;
+		}
 	}
 
 	// Opinion option 1.
 	input[type="button"]:nth-of-type(1) {
-		background-color: red;
+		background-color: $red;
 		color: white;
+		margin-right: 5px;
 	}
 
 	// Opinion option 2.
 	input[type="button"]:nth-of-type(2) {
-		background-color: black;
+		background-color: $black;
 		color: white;
 	}
 
-	&__chart {
-		transform: rotate(180deg);
-		float: right;
+	// "Next" button.
+	input[type="button"]:nth-of-type(3) {
+		margin-left: 20px;
+	}
+
+	&__yes-percent {
+		background-color: $red;
+		color: white;
+		font-size: 12px;
+		padding: 10px;
+		margin-bottom: 2px;
+	}
+
+	&__no-percent {
+		background-color: $black;
+		color: white;
+		padding: 10px;
+		font-size: 12px;
+	}
+
+	&__percent-container {
 		display: none;
-		height: 100px;
+		width: 100%;
+		border-right: 2px dashed $black;
+	}
 
-		&-bar {
-			display: block;
-			float: left;
-			width: 20px;
-			margin-right: 2px;
-			background-color: black;
+	&__content {
+		margin-bottom: 30px;
+	}
 
-			&#yes {
-				background-color: red;
-			}
+	&__text {
+		margin-bottom: 10px;
+	}
 
-			&#no {
-				background-color: black;
-			}
-		}
+	&__deck {
+		width: 90%;
+		margin: 100px auto 0;
 	}
 }
 
+@media (min-width: 400px) {
+	.#{$module-name} {
+		
+		&__deck {
+			width: 60%;
+		}
+	}
+}

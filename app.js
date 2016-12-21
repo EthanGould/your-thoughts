@@ -31,22 +31,16 @@ $(document).ready(function() {
 		var percentYes = Math.round(opinion.yes/total*100);
 		var percentNo = Math.round(opinion.no/total*100);
 		var markup = [ '<div class="opinion ' + extraClass + '" data-yes="' + opinion.yes + '" data-no="' + opinion.no + '" data-index="' + index + '">',
-											'<div class="opinion__chart">',
-												'<span id="no" class="opinion__chart-bar"></span>',
-												'<span id="yes" class="opinion__chart-bar"></span>',
+											'<div class="opinion__content">',
+												'<p class="opinion__text">' + opinion.question + '</p>',
+												'<input class="opinion__input" type="button" value="yes"/>',
+												'<input class="opinion__input" type="button" value="no"/>',
+												'<input class="opinion-next" type="button" value="next &raquo;"/>',
 											'</div>',
-											'Yes Count: <span class="opinion-yes-count">' + opinion.yes + '</span>',
-											'<br>',
-											'No Count: <span class="opinion-no-count">' + opinion.no + '</span>',
-											'<br>',
-											'<br>',
-											'Yes Percent: <span class="opinion-yes-percent">' + percentYes + '%</span>',
-											'<br>',
-											'No Percent: <span class="opinion-no-percent">' + percentNo + '%</span>',
-											'<p>' + opinion.question + '</p>',
-											'<input class="opinion__input" type="button" value="yes"/>',
-											'<input class="opinion__input" type="button" value="no"/>',
-											'<input class="opinion-next" type="button" value="next"/>',
+											'<div class="opinion__percent-container">',
+												'<p><div class="opinion__yes-percent">' + percentYes + '%</div></p>',
+												'<p><div class="opinion__no-percent">' + percentNo + '%</div></p>',
+											'</div>',
 										'</div>'
 									].join('');
 
@@ -75,10 +69,23 @@ $(document).ready(function() {
 	 * @param  {int} percentYes The percentage of "yes" votes.
 	 * @param  {int} percentNo  The percentage of "no" votes.
 	 */
-	module.updateChart = function(percentYes, percentNo) {
-		$('.opinion__chart').show();
-		$('.opinion--display').find('#yes.opinion__chart-bar').css('height', percentYes);
-		$('.opinion--display').find('#no.opinion__chart-bar').css('height', percentNo);
+	module.updateChart = function(opinion, data, percentYes, percentNo) {
+		// Show bar graph after user has voted.
+		$('.opinion--display')
+			.find('.opinion__percent-container')
+			.show();
+
+		// Update 'yes' bar height and text.
+		$('.opinion--display')
+			.find('.opinion__yes-percent')
+			.css('width', percentYes + '%')
+			.text(percentYes + '%');
+
+		// Update 'no' bar height and text.
+		$('.opinion--display')
+			.find('.opinion__no-percent')
+			.css('width', percentNo + '%')
+			.text(percentNo + '%');
 	};
 
 
@@ -106,12 +113,8 @@ $(document).ready(function() {
 			$(this).parents('.opinion').find('.opinion-no-count').text(no + 1);
 		}
 
-		// Update local percentages
-		$(this).parents('.opinion').find('.opinion-yes-percent').text(Math.round(yes/total*100) + '%');
-		$(this).parents('.opinion').find('.opinion-no-percent').text(Math.round(no/total*100) + '%');
-
 		// Update chart
-		module.updateChart(Math.round(yes/total*100), Math.round(no/total*100));
+		module.updateChart(this, data, Math.round(yes/total*100), Math.round(no/total*100));
 	};
 
 
@@ -147,7 +150,7 @@ $(document).ready(function() {
 	 * Initialize the module and cache some selectors.
 	 */
 	module.init = function() {
-		module.$opinionDeck = $('.opinion-deck');
+		module.$opinionDeck = $('.opinion__deck');
 		module.$input = '.opinion__input';
 		module.loadOpinions();
 		module.eventHandlers();

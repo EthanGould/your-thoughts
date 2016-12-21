@@ -1,3 +1,10 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Josefin Sans', sans-serif; }
+
+p {
+  margin: 0 auto; }
+
 .opinion {
   display: none;
   transition: all 0.25s;
@@ -11,27 +18,49 @@
     display: none; }
   .opinion input[type="button"] {
     padding: 10px;
-    border: none; }
+    border: none;
+    width: 60px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: opacity 0.3s; }
+    .opinion input[type="button"]:focus {
+      outline: 0; }
+    .opinion input[type="button"]:hover {
+      opacity: 0.7; }
   .opinion input[type="button"]:nth-of-type(1) {
-    background-color: red;
-    color: white; }
+    background-color: #db1a1e;
+    color: white;
+    margin-right: 5px; }
   .opinion input[type="button"]:nth-of-type(2) {
-    background-color: black;
+    background-color: #000000;
     color: white; }
-  .opinion__chart {
-    transform: rotate(180deg);
-    float: right;
+  .opinion input[type="button"]:nth-of-type(3) {
+    margin-left: 20px; }
+  .opinion__yes-percent {
+    background-color: #db1a1e;
+    color: white;
+    font-size: 12px;
+    padding: 10px;
+    margin-bottom: 2px; }
+  .opinion__no-percent {
+    background-color: #000000;
+    color: white;
+    padding: 10px;
+    font-size: 12px; }
+  .opinion__percent-container {
     display: none;
-    height: 100px; }
-    .opinion__chart-bar {
-      display: block;
-      float: left;
-      width: 20px;
-      margin-right: 2px;
-      background-color: black; }
-      .opinion__chart-bar#yes {
-        background-color: red; }
-      .opinion__chart-bar#no {
-        background-color: black; }
+    width: 100%;
+    border-right: 2px dashed #000000; }
+  .opinion__content {
+    margin-bottom: 30px; }
+  .opinion__text {
+    margin-bottom: 10px; }
+  .opinion__deck {
+    width: 90%;
+    margin: 100px auto 0; }
+
+@media (min-width: 400px) {
+  .opinion__deck {
+    width: 60%; } }
 
 /*# sourceMappingURL=style.css.map */
