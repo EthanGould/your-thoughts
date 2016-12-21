@@ -1,4 +1,37 @@
 .opinion {
-  margin-bottom: 60px; }
+  display: none;
+  transition: all 0.25s;
+  height: 0;
+  pointer-events: none; }
+  .opinion--display {
+    display: block;
+    height: auto;
+    pointer-events: initial; }
+  .opinion-done {
+    display: none; }
+  .opinion input[type="button"] {
+    padding: 10px;
+    border: none; }
+  .opinion input[type="button"]:nth-of-type(1) {
+    background-color: red;
+    color: white; }
+  .opinion input[type="button"]:nth-of-type(2) {
+    background-color: black;
+    color: white; }
+  .opinion__chart {
+    transform: rotate(180deg);
+    float: right;
+    display: none;
+    height: 100px; }
+    .opinion__chart-bar {
+      display: block;
+      float: left;
+      width: 20px;
+      margin-right: 2px;
+      background-color: black; }
+      .opinion__chart-bar#yes {
+        background-color: red; }
+      .opinion__chart-bar#no {
+        background-color: black; }
 
 /*# sourceMappingURL=style.css.map */

@@ -1,10 +1,59 @@
 $module-name: 'opinion';
 
 .#{$module-name} {
-	// display: none;
-	margin-bottom: 60px;
+	display: none;
+	transition: all 0.25s;
+	height: 0;
+	pointer-events: none;
 
-	&:first-child {
-		// display: block;
+	&--display {
+		display: block;
+		height: auto;
+		pointer-events: initial;
+	}
+
+	&-done { 
+		display: none;
+	}
+
+	input[type="button"] {
+		padding: 10px;
+		border: none;
+	}
+
+	// Opinion option 1.
+	input[type="button"]:nth-of-type(1) {
+		background-color: red;
+		color: white;
+	}
+
+	// Opinion option 2.
+	input[type="button"]:nth-of-type(2) {
+		background-color: black;
+		color: white;
+	}
+
+	&__chart {
+		transform: rotate(180deg);
+		float: right;
+		display: none;
+		height: 100px;
+
+		&-bar {
+			display: block;
+			float: left;
+			width: 20px;
+			margin-right: 2px;
+			background-color: black;
+
+			&#yes {
+				background-color: red;
+			}
+
+			&#no {
+				background-color: black;
+			}
+		}
 	}
 }
+
