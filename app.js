@@ -71,18 +71,18 @@ $(document).ready(function() {
 	 */
 	module.updateChart = function(opinion, data, percentYes, percentNo) {
 		// Show bar graph after user has voted.
-		$('.opinion--current')
+		$(module.currentClass)
 			.find('.opinion__percent-container')
 			.show();
 
 		// Update 'yes' bar height and text.
-		$('.opinion--current')
+		$(module.currentClass)
 			.find('.opinion__yes-percent')
 			.animate({'width': percentYes + '%'})
 			.text(percentYes + '%');
 
 		// Update 'no' bar height and text.
-		$('.opinion--current')
+		$(module.currentClass)
 			.find('.opinion__no-percent')
 			.animate({'width': percentNo + '%'})
 			.text(percentNo + '%');
@@ -130,10 +130,10 @@ $(document).ready(function() {
 	 * Cycles through opinions, displaying an ending message when done.
 	 */
 	module.showNextOpinion = function() {
-		var curIndex = $('.opinion--current').data('index');
+		var curIndex = $(module.currentClass).data('index');
 		
 		// Hide current, show next.
-		$(this).parents('.opinion--current').removeClass('opinion--current');
+		$(this).parents(module.currentClass).removeClass('opinion--current');
 		$('.opinion[data-index="' + (curIndex + 1) + '"]').addClass('opinion--current');
 
 		if (2 === curIndex) {
@@ -160,6 +160,7 @@ $(document).ready(function() {
 		module.loadOpinions();
 		module.eventHandlers();
 		module.slideDelay = 1000;
+		module.currentClass = '.opinion--current';
 	};
 
 	module.init();
