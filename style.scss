@@ -1,0 +1,10 @@
+$module-name: 'opinion';
+
+.#{$module-name} {
+	// display: none;
+	margin-bottom: 60px;
+
+	&:first-child {
+		// display: block;
+	}
+}
