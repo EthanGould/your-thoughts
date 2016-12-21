@@ -1,10 +1,12 @@
 //
-// DEFAULTS/RESETS
+// Default/Resets
 // 
 // 
 
 $red: #db1a1e;
 $black: #000000;
+$lightgrey: #e5e5e5;
+$darkgrey: #afafaf;
 
 * {
 	box-sizing: border-box;
@@ -24,13 +26,11 @@ $module-name: 'opinion';
 
 .#{$module-name} {
 	display: none;
-	transition: all 0.25s;
-	height: 0;
+	transition: all 0.1s;
 	pointer-events: none;
 
-	&--display {
+	&--current {
 		display: block;
-		height: auto;
 		pointer-events: initial;
 	}
 
@@ -46,13 +46,8 @@ $module-name: 'opinion';
 		cursor: pointer;
 		transition: opacity 0.3s;
 
-		&:focus {
-			outline: 0;
-		}
-
-		&:hover {
-			opacity: 0.7;
-		}
+		&:focus { outline: 0; }
+		&:hover { opacity: 0.7; }
 	}
 
 	// Opinion option 1.
@@ -71,6 +66,7 @@ $module-name: 'opinion';
 	// "Next" button.
 	input[type="button"]:nth-of-type(3) {
 		margin-left: 20px;
+		background-color: $darkgrey;
 	}
 
 	&__yes-percent {
@@ -91,7 +87,7 @@ $module-name: 'opinion';
 	&__percent-container {
 		display: none;
 		width: 100%;
-		border-right: 2px dashed $black;
+		border-right: 2px dashed $darkgrey;
 	}
 
 	&__content {
@@ -100,11 +96,14 @@ $module-name: 'opinion';
 
 	&__text {
 		margin-bottom: 10px;
+		font-size: 20px;
 	}
 
 	&__deck {
 		width: 90%;
 		margin: 100px auto 0;
+		padding: 15px;
+		background-color: $lightgrey;
 	}
 }
 

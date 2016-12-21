@@ -24,7 +24,7 @@ $(document).ready(function() {
 	module.buildSlider = function(index, opinion) {
 		var extraClass = '';
 		if (0 === index) {
-			extraClass = 'opinion--display';
+			extraClass = 'opinion--current';
 			module.buildDonePage();
 		}
 		var total = opinion.yes + opinion.no;
@@ -71,20 +71,20 @@ $(document).ready(function() {
 	 */
 	module.updateChart = function(opinion, data, percentYes, percentNo) {
 		// Show bar graph after user has voted.
-		$('.opinion--display')
+		$('.opinion--current')
 			.find('.opinion__percent-container')
 			.show();
 
 		// Update 'yes' bar height and text.
-		$('.opinion--display')
+		$('.opinion--current')
 			.find('.opinion__yes-percent')
-			.css('width', percentYes + '%')
+			.animate({'width': percentYes + '%'})
 			.text(percentYes + '%');
 
 		// Update 'no' bar height and text.
-		$('.opinion--display')
+		$('.opinion--current')
 			.find('.opinion__no-percent')
-			.css('width', percentNo + '%')
+			.animate({'width': percentNo + '%'})
 			.text(percentNo + '%');
 	};
 
@@ -96,25 +96,32 @@ $(document).ready(function() {
 	module.updateOpinion = function() {
 		var data = $(this).parents('.opinion').data(),
 								index = data.index,
-								yes = data.yes,
-								no = data.no,
+								yesCount = data.yes,
+								noCount = data.no,
 								vote = this.value,
-								total = yes + no,
+								total = yesCount + noCount,
 								opinionRef = firebase.database().ref('opinions').child(index); // Reference to Firebase DB.
 
 		// Update remote and local vote counts.
 		if ('yes' === vote) {
-			opinionRef.update({'yes': yes + 1});
-			$(this).parents('.opinion').data(vote,	yes + 1);
-			$(this).parents('.opinion').find('.opinion-yes-count').text(yes + 1);
-		} else if ('no' === vote){
-			opinionRef.update({'no': no + 1});
-			$(this).parents('.opinion').data(vote,	no + 1);
-			$(this).parents('.opinion').find('.opinion-no-count').text(no + 1);
-		}
+			// Firebase updates.
+			opinionRef.update({'yes': yesCount + 1});
 
-		// Update chart
-		module.updateChart(this, data, Math.round(yes/total*100), Math.round(no/total*100));
+			// Local front end updates.
+			$(this).parents('.opinion').data(vote,	yesCount + 1);
+			$(this).parents('.opinion').find('.opinion-yes-count').text(yesCount + 1);
+			module.updateChart(this, data, Math.round((yesCount + 1)/total*100), Math.round(noCount/total*100));
+		
+		} else if ('no' === vote){
+			// Firebase updates.
+			opinionRef.update({'no': noCount + 1});
+
+			// Local front end updates.
+			$(this).parents('.opinion').data(vote,	noCount + 1);
+			$(this).parents('.opinion').find('.opinion-no-count').text(noCount + 1);
+			module.updateChart(this, data, Math.round(yesCount/total*100), Math.round((noCount + 1)/total*100));
+		
+		}
 	};
 
 
@@ -123,16 +130,14 @@ $(document).ready(function() {
 	 * Cycles through opinions, displaying an ending message when done.
 	 */
 	module.showNextOpinion = function() {
-		var curIndex = $('.opinion--display').data('index');
-		$(this).parents('.opinion--display').removeClass('opinion--display');
-		setTimeout(function() {
-			$('.opinion[data-index="' + (curIndex + 1) + '"]').addClass('opinion--display');
-		}, module.slideDelay);
+		var curIndex = $('.opinion--current').data('index');
+		
+		// Hide current, show next.
+		$(this).parents('.opinion--current').removeClass('opinion--current');
+		$('.opinion[data-index="' + (curIndex + 1) + '"]').addClass('opinion--current');
 
 		if (2 === curIndex) {
-			setTimeout(function() {
-				$('.opinion-done').show();
-			}, module.slideDelay);
+			$('.opinion-done').show();
 		}
 	};
 
@@ -154,7 +159,7 @@ $(document).ready(function() {
 		module.$input = '.opinion__input';
 		module.loadOpinions();
 		module.eventHandlers();
-		module.slideDelay = 250;
+		module.slideDelay = 1000;
 	};
 
 	module.init();
