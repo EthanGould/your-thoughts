@@ -1,4 +1,4 @@
-$(document).ready(function() {
+jQuery(document).ready(function($) {
 
 	var module = {};
 
@@ -6,7 +6,7 @@ $(document).ready(function() {
 	 * Grab the opinions for this page.
 	 */
 	module.loadOpinions = function() {
-		console.log('LOADED!!');
+		console.log('LOADED');
 		$.get('https://your-thoughts-312e1.firebaseio.com/opinions.json', function(data) {
 			$(data).each(function(index, opinion) {
 				module.buildSlider(index, opinion);
@@ -165,4 +165,4 @@ $(document).ready(function() {
 	};
 
 	module.init();
-});
+})(jQuery);
