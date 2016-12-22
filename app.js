@@ -6,6 +6,7 @@ $(document).ready(function() {
 	 * Grab the opinions for this page.
 	 */
 	module.loadOpinions = function() {
+		console.log('LOADED!!');
 		$.get('https://your-thoughts-312e1.firebaseio.com/opinions.json', function(data) {
 			$(data).each(function(index, opinion) {
 				module.buildSlider(index, opinion);
